@@ -7,6 +7,7 @@ const client = new Discord.Client();
 
 const commands = {
   'ping': require('./commands/ping'),
+  'comment': require('./commands/comment'),
 };
 
 const command_prefix = '$';
@@ -17,8 +18,13 @@ client.on('ready', () => {
 
 client.on('message', message => {
   if (message.content.startsWith(command_prefix)) {
-    const command = message.content.slice(1);    
-    commands[command](message);
+    const commandString = message.content.slice(1);    
+    const commandParts = commandString.split(' ');
+    const commandName = commandParts[0];
+    const commandArgs = commandParts.slice(1);
+    console.log('name:', commandName);
+    console.log('args:', commandArgs);
+    commands[commandName](message, commandArgs);
   }
 });
 
