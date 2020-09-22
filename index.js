@@ -24,7 +24,10 @@ client.on('message', message => {
     const commandArgs = commandParts.slice(1);
     console.log('name:', commandName);
     console.log('args:', commandArgs);
-    commands[commandName](message, commandArgs);
+    commandFunc = commands[commandName];
+    if (commandFunc) {
+      commands[commandName](message, commandArgs);
+    }
   }
 });
 
