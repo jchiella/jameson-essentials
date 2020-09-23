@@ -6,6 +6,7 @@ const commands = {
   'ping': require('./commands/ping'),
   'comment': require('./commands/comment'),
   'compliment': require('./commands/compliment'),
+  'calc': require('./commands/calc'),
 };
 
 const command_prefix = '$';

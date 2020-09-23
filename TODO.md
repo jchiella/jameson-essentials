@@ -1,7 +1,7 @@
 # Ideas
 
 * [ ] $math/$calc Calculator (simple arithmetic) (maybe wolfram alpha)
-* [ ] $compliment-me Compliments / positive things
+* [x] $compliment-me Compliments / positive things
 * [ ] $tictactoe Tic-tac-toe / other games
 * [ ] $bye-paul moves Paul to the secret life of Paul voice chat
 ----- Teachassist ------
