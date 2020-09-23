@@ -12,12 +12,12 @@ let state = {
 const hangmanCutoff = 7;
 
 const sendState = (message) => {
-  message.channel.send`
+  message.channel.send(`
    In progress: ${state.gameInProgress},
    hidden word: ${state.hiddenWord},
    guessed word: ${state.guessedWord},
    failed guesses: ${state.failedGuesses},
-   hangmanStage: ${state.hangmanStage}`;
+   hangmanStage: ${state.hangmanStage}`);
 }
 
 const subcommands = {
