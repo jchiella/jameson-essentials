@@ -11,6 +11,17 @@ let state = {
 
 const hangmanCutoff = 7;
 
+const gameWin = (message) => {
+  message.channel.send('You guys won!!! Yayayayay!');
+  state.gameInProgress = false;
+}
+
+const gameLose = (message) => {
+  message.channel.send('You guys lost. Game Over.');
+  message.channel.send(`The word was ${state.hiddenWord}`);
+  state.gameInProgress = false;
+}
+
 const sendState = (message) => {
   message.channel.send(`
    In progress: ${state.gameInProgress},
@@ -63,11 +74,13 @@ const subcommands = {
       }
 
       sendState(message);
+
       if (state.hangmanStage > hangmanCutoff) {
         gameLose(message);
       }
 
       if (state.guessedWord === [...state.hiddenWord]) {
+        console.log('win');
         gameWin(message);
       }
     }
@@ -80,17 +93,6 @@ const subcommands = {
       message.channel.send('There is no game to stop!');
     }
   },
-}
-
-const gameWin = (message) => {
-  message.channel.send('You guys won!!! Yayayayay!');
-  state.gameInProgress = false;
-}
-
-const gameLose = (message) => {
-  message.channel.send('You guys lost. Game Over.');
-  message.channel.send(`The word was ${state.hiddenWord}`);
-  state.gameInProgress = false;
 }
 
 module.exports = (message, args) => {
