@@ -1,3 +1,4 @@
+const { MessageAttachment } = require('discord.js');
 const { sayMention } = require('../utils');
 
 module.exports = (message, args) => {
