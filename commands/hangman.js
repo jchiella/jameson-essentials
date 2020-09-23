@@ -33,7 +33,7 @@ const sendState = (message) => {
       },
       {
         "name": "Incorrect Guesses",
-        "value": state.failedGuesses.join(' ').toUpperCase(),
+        "value": state.failedGuesses.join(' ').toUpperCase() || ' ',
       },
       {
         "name": "Hangman Step",
