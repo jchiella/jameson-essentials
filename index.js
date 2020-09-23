@@ -5,7 +5,7 @@ const client = new Discord.Client();
 const commands = {
   'ping': require('./commands/ping'),
   'comment': require('./commands/comment'),
-  'compliment-me': require('./commands/compliment-me'),
+  'compliment': require('./commands/compliment'),
 };
 
 const command_prefix = '$';
