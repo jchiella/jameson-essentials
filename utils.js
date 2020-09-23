@@ -1,9 +1,9 @@
-const sayMention = (client, channel, person, text) => {
+const sayMention = (client, channel, person, asker, text) => {
     const personID = person.slice(3, -1);
     const botID = getUserIDFromName(client, 'JamesonEssentials');
 
     if (person === 'me' || personID === botID) {
-      message.channel.send(`${message.author} ${text}`);
+      message.channel.send(`${asker} ${text}`);
     } else {
       channel.send(`${person} ${text}`);
     }

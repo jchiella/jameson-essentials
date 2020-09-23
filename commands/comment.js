@@ -23,6 +23,6 @@ module.exports = (message, args) => {
     message.channel.send(comments[randomIndex]);
   } else if (args.length === 1) {
     const person = args[0];
-    sayMention(message.client, message.channel, person, comments[randomIndex]);
+    sayMention(message.client, message.channel, person, message.author, comments[randomIndex]);
   }
 }

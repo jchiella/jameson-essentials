@@ -9,7 +9,7 @@ module.exports = (message, args) => {
     .then(function (response) {
       if (args.length === 1) {
         const person = args[0];
-        sayMention(message.client, message.channel, person, response.data.compliment);
+        sayMention(message.client, message.channel, person, message.author, response.data.compliment);
       }
     })
     .catch(function (error) {
