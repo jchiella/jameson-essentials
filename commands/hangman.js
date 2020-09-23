@@ -12,11 +12,12 @@ let state = {
 const hangmanCutoff = 7;
 
 const sendState = (message) => {
-  message.channel.send(`In progress: ${state.gameInProgress},
+  message.channel.send`
+   In progress: ${state.gameInProgress},
    hidden word: ${state.hiddenWord},
    guessed word: ${state.guessedWord},
    failed guesses: ${state.failedGuesses},
-   hangmanStage: ${state.hangmanStage}`);
+   hangmanStage: ${state.hangmanStage}`;
 }
 
 const subcommands = {
@@ -40,6 +41,7 @@ const subcommands = {
   'guess': (message, args) => {
     if (args.length === 2) {
       const guess = args[1];
+      console.log('guess', guess);
       if (guess.length > 1) {
         message.channel.send('Just one letter guess please!');
         return;
@@ -53,10 +55,10 @@ const subcommands = {
         }
         if (!hasGuess) {
           state.failedGuesses.push(guess);
+          state.hangmanStage += 1;
         }
       }
 
-      state.hangmanStage += 1;
       sendState(message);
       if (state.hangmanStage > hangmanCutoff) {
         gameLose(message);
