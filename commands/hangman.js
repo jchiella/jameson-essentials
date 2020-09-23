@@ -16,7 +16,7 @@ const sendState = (message) => {
    hidden word: ${state.hiddenWord},
    guessed word: ${state.guessedWord},
    failed guesses: ${state.failedGuesses},
-   hangmanStage: ${hangmanStage}`);
+   hangmanStage: ${state.hangmanStage}`);
 }
 
 const subcommands = {
