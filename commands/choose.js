@@ -1,5 +1,5 @@
 module.exports = (message, args) => {
   const choices = args.join(' ').split(',');
-  const randomChoice = choices[Math.floor(Math.random() * comments.length)];
+  const randomChoice = choices[Math.floor(Math.random() * choices.length)];
   message.channel.send(`Jameson Essentials has chosen. My choice is ${randomChoice}.`);
 }

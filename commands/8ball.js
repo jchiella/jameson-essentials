@@ -22,7 +22,7 @@ const eightBallOptions = [
 ]
 
 module.exports = (message, args) => {
-  const randomIndex = Math.floor(Math.random() * comments.length);
+  const randomIndex = Math.floor(Math.random() * eightBallOptions.length);
   if (args.length) {
     message.channel.send(eightBallOptions[randomIndex]);
   }
