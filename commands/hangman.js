@@ -28,15 +28,15 @@ const sendState = (message) => {
     "color": 5288419,
     "fields": [
       {
-        "name": "Word to guess",
+        "name": "Word to Guess",
         "value": state.guessedWord.join(''),
       },
       {
-        "name": "Incorrect guesses",
+        "name": "Incorrect Guesses",
         "value": state.failedGuesses.join(' ').toUpperCase(),
       },
       {
-        "name": "Hangman step",
+        "name": "Hangman Step",
         "value": state.hangmanStage,
       }
     ]
