@@ -1,8 +1,9 @@
 # Ideas
 
-* [ ] $math/$calc Calculator (simple arithmetic) (maybe wolfram alpha)
+* [x] $math/$calc Calculator (simple arithmetic) (maybe wolfram alpha)
 * [x] $compliment-me Compliments / positive things
 * [ ] $tictactoe Tic-tac-toe / other games
+* [ ] $hangman Hangman
 * [ ] $bye-paul moves Paul to the secret life of Paul voice chat
 ----- Teachassist ------
 * [ ] $myaverage get your average from teachassist
