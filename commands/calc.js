@@ -6,7 +6,7 @@ module.exports = (message, args) => {
   if (args.length > 0) {
     axios.get(apiURL, {
       params: {
-        expr: encodeURIComponent(args.join(' ')),
+        expr: args.join(' '),
       },
     })
       .then(function (response) {
