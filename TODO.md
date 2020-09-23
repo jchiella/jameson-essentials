@@ -15,10 +15,10 @@
 * [x] $choose _options_
   * Chooses a random option with equal probability
   * options are comma seperated
-* [ ] $donald _topic_/nothing
+* [x] $donald _topic_/nothing
   * Picks a random donald quote about the topic or just in general
   * uses the tronalddump.io API
-* [ ] $unoreverse _person_
+* [x] $unoreverse _person_
   * Sends an uno reverse card to the selected person
 
 * [ ] More stuff...

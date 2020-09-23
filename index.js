@@ -11,6 +11,7 @@ const commands = {
   '8ball': require('./commands/8ball'),
   'choose': require('./commands/choose'),
   'donald': require('./commands/donald'),
+  'unoreverse': require('./commands/unoreverse'),
 };
 
 client.on('ready', () => {
