@@ -1,5 +1,5 @@
 const axios = require('axios');
-
+const { MessageEmbed } = require('discord.js');
 
 let state = {
   gameInProgress: false,
@@ -23,12 +23,13 @@ const gameLose = (message) => {
 }
 
 const sendState = (message) => {
-  message.channel.send(`
-   In progress: ${state.gameInProgress},
-   hidden word: ${state.hiddenWord},
-   guessed word: ${state.guessedWord},
-   failed guesses: ${state.failedGuesses},
-   hangmanStage: ${state.hangmanStage}`);
+  const embed = new MessageEmbed()
+    .setTitle('Hangman')
+    .setColor(0x0000ff)
+    .addField('Word to guess', state.guessedWord.join(''))
+    .addField('Incorrect guesses', state.failedGuesses.join(' ').toUpperCase())
+    .addField('Hangman step', state.hangmanStage);
+  message.channel.send(embed);
 }
 
 const subcommands = {
@@ -41,7 +42,7 @@ const subcommands = {
       state.hiddenWord = words[Math.floor(Math.random() * words.length)];
       console.log(state.hiddenWord);
       state.guessedWord = '-'.repeat(state.hiddenWord.length);
-      state.guessedWord = Array(state.hiddenWord.length).fill('-');
+      state.guessedWord = Array(state.hiddenWord.length).fill('_');
       state.failedGuesses = [];
       state.hangmanStage = 0;
       message.channel.send('Welcome to hangman!');
