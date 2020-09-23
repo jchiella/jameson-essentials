@@ -20,5 +20,7 @@
   * uses the tronalddump.io API
 * [x] $unoreverse _person_
   * Sends an uno reverse card to the selected person
+* [ ] $weather
+  * Gets the current weather
 
 * [ ] More stuff...

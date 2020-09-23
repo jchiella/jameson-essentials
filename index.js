@@ -12,6 +12,7 @@ const commands = {
   'choose': require('./commands/choose'),
   'donald': require('./commands/donald'),
   'unoreverse': require('./commands/unoreverse'),
+  'hangman': require('./commands/hangman'),
 };
 
 client.on('ready', () => {
@@ -28,7 +29,7 @@ client.on('message', message => {
     console.log('args:', commandArgs);
     commandFunc = commands[commandName];
     if (commandFunc) {
-      commands[commandName](message, commandArgs);
+      commandFunc(message, commandArgs);
     }
   }
 });
