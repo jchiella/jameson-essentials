@@ -4,7 +4,7 @@ const axios = require('axios');
 let state = {
   gameInProgress: false,
   hiddenWord: '',
-  guessedWord: '',
+  guessedWord: [],
   failedGuesses: [],
   hangmanStage: 0,
 }
@@ -30,6 +30,7 @@ const subcommands = {
       state.hiddenWord = words[Math.floor(Math.random() * words.length)];
       console.log(state.hiddenWord);
       state.guessedWord = '-'.repeat(state.hiddenWord.length);
+      state.guessedWord = Array(state.hiddenWord.length).fill('-');
       state.failedGuesses = [];
       state.hangmanStage = 0;
       message.channel.send('Welcome to hangman!');
