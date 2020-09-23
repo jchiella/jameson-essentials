@@ -24,7 +24,7 @@ const gameLose = (message) => {
 
 const sendState = (message) => {
   console.log(state.guessedWord.join(''));
-  console.log(state.failedGuesses.join(' ').toUpperCase() || ' ');
+  console.log(state.failedGuesses.join(' ').toUpperCase() || 'None');
   console.log(state.hangmanStage);
   message.channel.send({embed: {
     "title": "Hangman",
@@ -36,7 +36,7 @@ const sendState = (message) => {
       },
       {
         "name": "Incorrect Guesses",
-        "value": state.failedGuesses.join(' ').toUpperCase() || ' ',
+        "value": state.failedGuesses.join(' ').toUpperCase() || 'None',
       },
       {
         "name": "Hangman Step",
