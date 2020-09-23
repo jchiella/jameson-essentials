@@ -23,13 +23,25 @@ const gameLose = (message) => {
 }
 
 const sendState = (message) => {
-  const embed = new MessageEmbed()
-    .setTitle('Hangman')
-    .setColor(0x0000ff)
-    .addField('Word to guess', state.guessedWord.join(''))
-    .addField('Incorrect guesses', state.failedGuesses.join(' ').toUpperCase() || ' ')
-    .addField('Hangman step', state.hangmanStage);
-  message.channel.send(embed);
+  const embed = {
+    "title": "Hangman",
+    "color": 5288419,
+    "fields": [
+      {
+        "name": "Word to guess",
+        "value": state.guessedWord.join(''),
+      },
+      {
+        "name": "Incorrect guesses",
+        "value": state.failedGuesses.join(' ').toUpperCase(),
+      },
+      {
+        "name": "Hangman step",
+        "value": state.hangmanStage,
+      }
+    ]
+  };
+  message.channel.send({ embed });
 }
 
 const subcommands = {
