@@ -1,3 +1,4 @@
+const axios = require('axios');
 const apiURL = 'https://api.tronalddump.io/random/quote';
 
 module.exports = (message, args) => {
