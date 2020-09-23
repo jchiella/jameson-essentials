@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const { commandPrefix, botToken } = require('./globals');
 
 const client = new Discord.Client();
 
@@ -9,14 +10,12 @@ const commands = {
   'calc': require('./commands/calc'),
 };
 
-const command_prefix = '$';
-
 client.on('ready', () => {
   console.log('I am ready!');
 });
 
 client.on('message', message => {
-  if (message.content.startsWith(command_prefix)) {
+  if (message.content.startsWith(commandPrefix)) {
     const commandString = message.content.slice(1);    
     const commandParts = commandString.split(' ');
     const commandName = commandParts[0];
@@ -30,4 +29,4 @@ client.on('message', message => {
   }
 });
 
-client.login(process.env.BOT_TOKEN);
+client.login(botToken);

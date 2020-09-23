@@ -1,5 +1,7 @@
 const axios = require('axios');
 
+const { sayMention } = require('../utils');
+
 const complimentsURL = 'https://complimentr.com/api';
 
 module.exports = (message, args) => {
@@ -7,11 +9,7 @@ module.exports = (message, args) => {
     .then(function (response) {
       if (args.length === 1) {
         const person = args[0];
-        if (person === 'me') {
-          message.channel.send(response.data.compliment);
-        } else {
-          message.channel.send(`${person} ${response.data.compliment}`);
-        }
+        sayMention(message.client, message.channel, person, response.data.compliment);
       }
     })
     .catch(function (error) {

@@ -3,6 +3,8 @@
 const cheerio = require('cheerio');
 const axios = require('axios');
 
+const { sayMention } = require('../utils');
+
 const commentsURL = 'https://www.joydeepdeb.com/misc/one-liners.html';
 const comments = [];
 
@@ -21,12 +23,6 @@ module.exports = (message, args) => {
     message.channel.send(comments[randomIndex]);
   } else if (args.length === 1) {
     const person = args[0];
-    const personID = person.slice(3, -1);
-    const botID = message.client.users.cache.find(user => user.username == 'JamesonEssentials').id;
-    if (personID === botID) {
-      message.channel.send(`${message.author} ${comments[randomIndex]}`);
-    } else {
-      message.channel.send(`${person} ${comments[randomIndex]}`);
-    }
+    sayMention(message.client, message.channel, person, comments[randomIndex]);
   }
 }
