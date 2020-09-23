@@ -3,7 +3,7 @@ const sayMention = (client, channel, person, asker, text) => {
     const botID = getUserIDFromName(client, 'JamesonEssentials');
 
     if (person === 'me' || personID === botID) {
-      message.channel.send(`${asker} ${text}`);
+      channel.send(`${asker} ${text}`);
     } else {
       channel.send(`${person} ${text}`);
     }
