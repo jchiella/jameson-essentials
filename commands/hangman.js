@@ -23,7 +23,10 @@ const gameLose = (message) => {
 }
 
 const sendState = (message) => {
-  const embed = {
+  console.log(state.guessedWord.join(''));
+  console.log(state.failedGuesses.join(' ').toUpperCase() || ' ');
+  console.log(state.hangmanStage);
+  message.channel.send({embed: {
     "title": "Hangman",
     "color": 5288419,
     "fields": [
@@ -40,8 +43,7 @@ const sendState = (message) => {
         "value": state.hangmanStage,
       }
     ]
-  };
-  message.channel.send({ embed });
+  }});
 }
 
 const subcommands = {
