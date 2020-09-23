@@ -23,7 +23,7 @@ const subcommands = {
     if (!state.gameInProgress) {
       state.gameInProgress = true;
       state.hiddenWord = words[Math.floor(Math.random() * words.length)];
-      state.guessedWord = '-'.repeat(hiddenWord.length);
+      state.guessedWord = '-'.repeat(state.hiddenWord.length);
       state.failedGuesses = [];
       state.hangmanStage = 0;
       message.channel.send('Welcome to hangman!');
