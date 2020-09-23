@@ -12,7 +12,7 @@ module.exports = (message, args) => {
       },
     })
       .then(function (response) {
-        message.channel.send(reponse.data);
+        message.channel.send(response.data);
       })
       .catch(function (error) {
         console.log(error);
