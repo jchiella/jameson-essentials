@@ -55,8 +55,10 @@ const subcommands = {
           }
         }
         if (!hasGuess) {
-          state.failedGuesses.push(guess);
-          state.hangmanStage += 1;
+          if (!state.failedGuesses.includes(guess)) {
+            state.failedGuesses.push(guess);
+            state.hangmanStage += 1;
+          }
         }
       }
 
@@ -65,7 +67,7 @@ const subcommands = {
         gameLose(message);
       }
 
-      if (state.guessedWord === state.hiddenWord) {
+      if (state.guessedWord === [...state.hiddenWord]) {
         gameWin(message);
       }
     }
