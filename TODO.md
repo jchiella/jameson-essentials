@@ -10,9 +10,9 @@
 * [ ] $hangman
   * Hangman
   * collaborative against the bot (for now)
-* [ ] $8ball _question_
+* [x] $8ball _question_
   * 8 Ball message
-* [ ] $choose _options_
+* [x] $choose _options_
   * Chooses a random option with equal probability
   * options are comma seperated
 * [ ] $donald _topic_/nothing

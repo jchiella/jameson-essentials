@@ -8,6 +8,8 @@ const commands = {
   'comment': require('./commands/comment'),
   'compliment': require('./commands/compliment'),
   'calc': require('./commands/calc'),
+  '8ball': require('./commands/8ball'),
+  'choose': require('./commands/choose'),
 };
 
 client.on('ready', () => {
