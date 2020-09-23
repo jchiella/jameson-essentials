@@ -12,7 +12,11 @@ let state = {
 const hangmanCutoff = 7;
 
 const sendState = (message) => {
-  message.channel.send(`State: ${state}`);
+  message.channel.send(`In progress: ${state.gameInProgress},
+   hidden word: ${state.hiddenWord},
+   guessed word: ${state.guessedWord},
+   failed guesses: ${state.failedGuesses},
+   hangmanStage: ${hangmanStage}`);
 }
 
 const subcommands = {
@@ -53,6 +57,7 @@ const subcommands = {
       }
 
       state.hangmanStage += 1;
+      sendState(message);
       if (state.hangmanStage > hangmanCutoff) {
         gameLose(message);
       }
