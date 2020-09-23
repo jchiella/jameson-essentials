@@ -1,6 +1,12 @@
 # Ideas
 
-* [ ] Calculator (simple arithmetic)
-* [ ] Compliments / positive things
-* [ ] Tic-tac-toe / other games
+* [ ] $math/$calc Calculator (simple arithmetic) (maybe wolfram alpha)
+* [ ] $compliment-me Compliments / positive things
+* [ ] $tictactoe Tic-tac-toe / other games
+* [ ] $bye-paul moves Paul to the secret life of Paul voice chat
+----- Teachassist ------
+* [ ] $myaverage get your average from teachassist
+* [ ] $marks get your marks from teachassist
+* [ ] $the-rivalry Gabby's marks compared to 92
+
 * [ ] More stuff...
