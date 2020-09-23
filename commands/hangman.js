@@ -27,7 +27,7 @@ const sendState = (message) => {
     .setTitle('Hangman')
     .setColor(0x0000ff)
     .addField('Word to guess', state.guessedWord.join(''))
-    .addField('Incorrect guesses', state.failedGuesses.join(' ').toUpperCase())
+    .addField('Incorrect guesses', state.failedGuesses.join(' ').toUpperCase() || ' ')
     .addField('Hangman step', state.hangmanStage);
   message.channel.send(embed);
 }
