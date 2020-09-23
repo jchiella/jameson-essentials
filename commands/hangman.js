@@ -79,6 +79,8 @@ const subcommands = {
         gameLose(message);
       }
 
+      console.log('guessedWord', state.guessedWord);
+      console.log('hiddenWord', [...state.hiddenWord]);
       if (state.guessedWord === [...state.hiddenWord]) {
         console.log('win');
         gameWin(message);
