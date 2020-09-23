@@ -20,9 +20,11 @@ const sendState = (message) => {
 
 const subcommands = {
   'start': (message, args) => {
+    console.log(words[0]);
     if (!state.gameInProgress) {
       state.gameInProgress = true;
       state.hiddenWord = words[Math.floor(Math.random() * words.length)];
+      console.log(state.hiddenWord);
       state.guessedWord = '-'.repeat(state.hiddenWord.length);
       state.failedGuesses = [];
       state.hangmanStage = 0;
