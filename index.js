@@ -10,6 +10,7 @@ const commands = {
   'calc': require('./commands/calc'),
   '8ball': require('./commands/8ball'),
   'choose': require('./commands/choose'),
+  'donald': require('./commands/donald'),
 };
 
 client.on('ready', () => {
