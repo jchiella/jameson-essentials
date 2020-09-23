@@ -1,8 +1,5 @@
 const axios = require('axios');
-const { StreamDispatcher } = require('discord.js');
 
-let words = axios.get('https://raw.githubusercontent.com/Tom25/Hangman/master/wordlist.txt')
-  .then((res) => res.data.split('\n'));
 
 let state = {
   gameInProgress: false,
@@ -19,7 +16,9 @@ const sendState = (message) => {
 }
 
 const subcommands = {
-  'start': (message, args) => {
+  'start': async (message, args) => {
+    let words = await axios.get('https://raw.githubusercontent.com/Tom25/Hangman/master/wordlist.txt')
+      .then((res) => res.data.split('\n'));
     console.log(words[0]);
     if (!state.gameInProgress) {
       state.gameInProgress = true;
