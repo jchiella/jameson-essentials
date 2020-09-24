@@ -7,7 +7,7 @@
 * [ ] $tictactoe 
   * Tic-tac-toe
   * Probably played with some visuals or something
-* [ ] $hangman
+* [x] $hangman
   * Hangman
   * collaborative against the bot (for now)
 * [x] $8ball _question_
