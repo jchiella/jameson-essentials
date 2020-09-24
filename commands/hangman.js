@@ -91,7 +91,7 @@ const sendState = (message) => {
       },
       {
         "name": "Hangman Gallows",
-        "value": '```' + JSON.stringify(hangmanPics[state.hangmanStage]) + '```',
+        "value": '```' + hangmanPics[state.hangmanStage] + '```',
       }
     ]
   }});
