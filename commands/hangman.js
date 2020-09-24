@@ -1,6 +1,57 @@
 const axios = require('axios');
 const { MessageEmbed } = require('discord.js');
 
+const hangmanPics = [String.raw`
+  +---+
+  |   |
+      |
+      |
+      |
+      |
+=========`, String.raw`
+  +---+
+  |   |
+  O   |
+      |
+      |
+      |
+=========`, String.raw`
+  +---+
+  |   |
+  O   |
+  |   |
+      |
+      |
+=========`, String.raw`
+  +---+
+  |   |
+  O   |
+ /|   |
+      |
+      |
+=========`, String.raw`
+  +---+
+  |   |
+  O   |
+ /|\  |
+      |
+      |
+=========`, String.raw`
+  +---+
+  |   |
+  O   |
+ /|\  |
+ /    |
+      |
+=========`, String.raw`
+  +---+
+  |   |
+  O   |
+ /|\  |
+ / \  |
+      |
+=========`];
+
 let state = {
   gameInProgress: false,
   hiddenWord: '',
@@ -9,7 +60,7 @@ let state = {
   hangmanStage: 0,
 }
 
-const hangmanCutoff = 7;
+const hangmanCutoff = 5;
 
 const gameWin = (message) => {
   message.channel.send('You guys won!!! Yayayayay!');
@@ -39,8 +90,8 @@ const sendState = (message) => {
         "value": state.failedGuesses.join(' ').toUpperCase() || 'None',
       },
       {
-        "name": "Hangman Step",
-        "value": state.hangmanStage,
+        "name": "Hangman Gallows",
+        "value": '```' + JSON.stringify(hangmanPics[state.hangmanStage]) + '```',
       }
     ]
   }});
@@ -55,7 +106,6 @@ const subcommands = {
       state.gameInProgress = true;
       state.hiddenWord = words[Math.floor(Math.random() * words.length)];
       console.log(state.hiddenWord);
-      state.guessedWord = '-'.repeat(state.hiddenWord.length);
       state.guessedWord = Array(state.hiddenWord.length).fill('_');
       state.failedGuesses = [];
       state.hangmanStage = 0;
@@ -67,7 +117,7 @@ const subcommands = {
   },
   'guess': (message, args) => {
     if (args.length === 2) {
-      const guess = args[1];
+      const guess = args[1].toLowerCase();
       console.log('guess', guess);
       if (guess.length > 1) {
         message.channel.send('Just one letter guess please!');
