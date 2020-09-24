@@ -23,7 +23,7 @@ const gameLose = (message) => {
 }
 
 const sendState = (message) => {
-  console.log(state.guessedWord.join(' ').toUpperCase().replaceAll('_', '\\_'));
+  console.log(state.guessedWord.join(' ').toUpperCase().replace(/_/g, '\\_'));
   console.log(state.failedGuesses.join(' ').toUpperCase() || 'None');
   console.log(state.hangmanStage);
   message.channel.send({embed: {
@@ -32,7 +32,7 @@ const sendState = (message) => {
     "fields": [
       {
         "name": "Word to Guess",
-        "value": state.guessedWord.join(' ').toUpperCase().replace('_', '\\\\_'),
+        "value": state.guessedWord.join(' ').toUpperCase().replace(/_/g, '\\_'),
       },
       {
         "name": "Incorrect Guesses",
