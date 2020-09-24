@@ -23,7 +23,7 @@ const gameLose = (message) => {
 }
 
 const sendState = (message) => {
-  console.log(state.guessedWord.join(' ').toUpperCase().replace('_', '\\\\_'));
+  console.log(state.guessedWord.join(' ').toUpperCase().replaceAll('_', '\\_'));
   console.log(state.failedGuesses.join(' ').toUpperCase() || 'None');
   console.log(state.hangmanStage);
   message.channel.send({embed: {
