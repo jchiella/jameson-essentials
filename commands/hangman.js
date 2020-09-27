@@ -1,5 +1,4 @@
 const axios = require('axios');
-const { MessageEmbed } = require('discord.js');
 
 const hangmanPics = [String.raw`
   +---+
@@ -62,22 +61,19 @@ let state = {
 
 const hangmanCutoff = 5;
 
-const gameWin = (message) => {
-  message.channel.send('You guys won!!! Yayayayay!');
+const gameWin = ({ channel }) => {
+  channel.send('You guys won!!! Yayayayay!');
   state.gameInProgress = false;
 }
 
-const gameLose = (message) => {
-  message.channel.send('You guys lost. Game Over.');
-  message.channel.send(`The word was ${state.hiddenWord}`);
+const gameLose = ({ channel }) => {
+  channel.send('You guys lost. Game Over.');
+  channel.send(`The word was ${state.hiddenWord}`);
   state.gameInProgress = false;
 }
 
-const sendState = (message) => {
-  console.log(state.guessedWord.join(' ').toUpperCase().replace(/_/g, '\\_'));
-  console.log(state.failedGuesses.join(' ').toUpperCase() || 'None');
-  console.log(state.hangmanStage);
-  message.channel.send({embed: {
+const sendState = ({ channel }) => {
+  channel.send({embed: {
     "title": "Hangman",
     "color": 5288419,
     "fields": [
@@ -98,29 +94,26 @@ const sendState = (message) => {
 }
 
 const subcommands = {
-  'start': async (message, args) => {
+  'start': async ({ channel }, args) => {
     let words = await axios.get('https://raw.githubusercontent.com/Tom25/Hangman/master/wordlist.txt')
       .then((res) => res.data.split('\n'));
-    console.log(words[0]);
     if (!state.gameInProgress) {
       state.gameInProgress = true;
       state.hiddenWord = words[Math.floor(Math.random() * words.length)];
-      console.log(state.hiddenWord);
       state.guessedWord = Array(state.hiddenWord.length).fill('_');
       state.failedGuesses = [];
       state.hangmanStage = 0;
-      message.channel.send('Welcome to hangman!');
+      channel.send('Welcome to hangman!');
       sendState(message);
     } else {
       message.channel.send('Game already in progress!');
     }
   },
-  'guess': (message, args) => {
+  'guess': ({ channel }, args) => {
     if (args.length === 2) {
       const guess = args[1].toLowerCase();
-      console.log('guess', guess);
       if (guess.length > 1) {
-        message.channel.send('Just one letter guess please!');
+        channel.send('Just one letter guess please!');
         return;
       } else {
         let hasGuess = false;
@@ -156,20 +149,26 @@ const subcommands = {
       }
     }
   },
-  'stop': (message, args) => {
+  'stop': ({ channel }, args) => {
     if (state.gameInProgress) {
       state.gameInProgress = false;
-      message.channel.send('Game stopped!');
+      channel.send('Game stopped!');
     } else {
-      message.channel.send('There is no game to stop!');
+      channel.send('There is no game to stop!');
     }
   },
 }
 
-module.exports = (message, args) => {
+const handler = (params, args) => {
   if (args.length) {
     const subcommandName = args[0];
     const subcommand = subcommands[subcommandName];
-    subcommand(message, args);
+    subcommand(params, args);
   }
+}
+
+module.exports = {
+  handler,
+  name: 'hangman',
+  init: () => _,
 }

@@ -1,22 +1,35 @@
 const Discord = require('discord.js');
+const winston = require('winston');
+
 const { commandPrefix, botToken } = require('./globals');
 
 const client = new Discord.Client();
 
-const commands = {
-  'ping': require('./commands/ping'),
-  'comment': require('./commands/comment'),
-  'compliment': require('./commands/compliment'),
-  'calc': require('./commands/calc'),
-  '8ball': require('./commands/8ball'),
-  'choose': require('./commands/choose'),
-  'donald': require('./commands/donald'),
-  'unoreverse': require('./commands/unoreverse'),
-  'hangman': require('./commands/hangman'),
-};
+const commands = [
+  require('./commands/ping'),
+  require('./commands/comment'),
+  require('./commands/compliment'),
+  require('./commands/calc'),
+  require('./commands/8ball'),
+  require('./commands/choose'),
+  require('./commands/donald'),
+  require('./commands/unoreverse'),
+  require('./commands/hangman'),
+];
+
+const logger = winston.createLogger({
+  format: winston.format.colorize(),
+  transports: [
+    new winston.transports.Console(),
+  ],
+})
 
 client.on('ready', () => {
-  console.log('I am ready!');
+  logger.info('I am ready!');
+
+  commands.forEach(command => {
+    command.init(logger);
+  });
 });
 
 client.on('message', message => {
@@ -25,11 +38,15 @@ client.on('message', message => {
     const commandParts = commandString.split(' ');
     const commandName = commandParts[0];
     const commandArgs = commandParts.slice(1);
-    console.log('name:', commandName);
-    console.log('args:', commandArgs);
-    commandFunc = commands[commandName];
+    logger.info(`Command run: ${commandPrefix}${commandName} with arguments ${commandArgs}`);
+    const command = commands.find((c) => c.name === commandName);
     if (commandFunc) {
-      commandFunc(message, commandArgs);
+      command.handler({
+        client: message.client,
+        channel: message.channel,
+        author: message.author,
+        logger,
+      }, commandArgs);
     }
   }
 });

@@ -21,9 +21,15 @@ const eightBallOptions = [
  'You may rely on it.',
 ]
 
-module.exports = (message, args) => {
+const handler = ({ channel }, args) => {
   const randomIndex = Math.floor(Math.random() * eightBallOptions.length);
   if (args.length) {
-    message.channel.send(eightBallOptions[randomIndex]);
+    channel.send(eightBallOptions[randomIndex]);
   }
+}
+
+module.exports = {
+  handler,
+  name: '8ball',
+  init: () => _,
 }

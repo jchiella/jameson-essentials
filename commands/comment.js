@@ -4,25 +4,30 @@ const cheerio = require('cheerio');
 const axios = require('axios');
 
 const { sayMention } = require('../utils');
-
 const commentsURL = 'https://www.joydeepdeb.com/misc/one-liners.html';
 const comments = [];
 
-axios.get(commentsURL)
+const init = (logger) => axios.get(commentsURL)
   .then(function (response) {
     const $ = cheerio.load(response.data);
     $('blockquote').each((_, el) => comments.push($(el).text()));
   })
   .catch(function (error) {
-    console.log(error);
+    logger.error(error);
   });
 
-module.exports = (message, args) => {
+const handler = ({ client, channel, author }, args) => {
   const randomIndex = Math.floor(Math.random() * comments.length);
   if (!args.length) {
-    message.channel.send(comments[randomIndex]);
+    channel.send(comments[randomIndex]);
   } else if (args.length === 1) {
     const person = args[0];
-    sayMention(message.client, message.channel, person, message.author, comments[randomIndex]);
+    sayMention(client, channel, person, author, comments[randomIndex]);
   }
+}
+
+module.exports = {
+  handler,
+  name: 'comment',
+  init,
 }
