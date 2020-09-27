@@ -40,7 +40,7 @@ client.on('message', message => {
     const commandArgs = commandParts.slice(1);
     logger.info(`Command run: ${commandPrefix}${commandName} with arguments ${commandArgs}`);
     const command = commands.find((c) => c.name === commandName);
-    if (commandFunc) {
+    if (command) {
       command.handler({
         client: message.client,
         channel: message.channel,
