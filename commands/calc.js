@@ -23,5 +23,5 @@ const handler = ({ channel }, args) => {
 module.exports = {
   handler,
   name: 'calc',
-  init: () => _,
+  init: () => 0,
 }

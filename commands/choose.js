@@ -7,5 +7,5 @@ const handler = ({ channel }, args) => {
 module.exports = {
   handler,
   name: 'choose',
-  init: () => _,
+  init: () => 0,
 }

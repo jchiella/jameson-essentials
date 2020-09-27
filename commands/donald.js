@@ -16,5 +16,5 @@ const handler = ({ channel, logger }, args) => {
 module.exports = {
   handler,
   name: 'donald',
-  init: () => _,
+  init: () => 0,
 }

@@ -20,5 +20,5 @@ const handler = ({ client, channel, author, logger }, args) => {
 module.exports = {
   handler,
   name: 'compliment',
-  init: () => _,   
+  init: () => 0,   
 }

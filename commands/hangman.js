@@ -170,5 +170,5 @@ const handler = (params, args) => {
 module.exports = {
   handler,
   name: 'hangman',
-  init: () => _,
+  init: () => 0,
 }

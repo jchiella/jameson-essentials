@@ -12,5 +12,5 @@ const handler = ({ client, channel, author }, args) => {
 module.exports = {
   handler,
   name: 'unoreverse',
-  init: () => _,
+  init: () => 0,
 }

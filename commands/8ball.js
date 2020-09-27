@@ -31,5 +31,5 @@ const handler = ({ channel }, args) => {
 module.exports = {
   handler,
   name: '8ball',
-  init: () => _,
+  init: () => 0,
 }

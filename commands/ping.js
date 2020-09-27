@@ -5,5 +5,5 @@ const handler = ({ channel }) => {
 module.exports = {
   handler,
   name: 'ping',
-  init: () => _,
+  init: () => 0,
 }
