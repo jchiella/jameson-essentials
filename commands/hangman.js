@@ -94,7 +94,8 @@ const sendState = ({ channel }) => {
 }
 
 const subcommands = {
-  'start': async ({ channel }, args) => {
+  'start': async (params, args) => {
+    const { channel } = params;
     let words = await axios.get('https://raw.githubusercontent.com/Tom25/Hangman/master/wordlist.txt')
       .then((res) => res.data.split('\n'));
     if (!state.gameInProgress) {
@@ -104,12 +105,13 @@ const subcommands = {
       state.failedGuesses = [];
       state.hangmanStage = 0;
       channel.send('Welcome to hangman!');
-      sendState(message);
+      sendState(params);
     } else {
-      message.channel.send('Game already in progress!');
+      channel.send('Game already in progress!');
     }
   },
-  'guess': ({ channel }, args) => {
+  'guess': (params, args) => {
+    const { channel } = params;
     if (args.length === 2) {
       const guess = args[1].toLowerCase();
       if (guess.length > 1) {
@@ -131,10 +133,10 @@ const subcommands = {
         }
       }
 
-      sendState(message);
+      sendState(params);
 
       if (state.hangmanStage > hangmanCutoff) {
-        gameLose(message);
+        gameLose(params);
       }
 
       let isWin = true;
@@ -145,7 +147,7 @@ const subcommands = {
       }
 
       if (isWin) {
-        gameWin(message);
+        gameWin(params);
       }
     }
   },
