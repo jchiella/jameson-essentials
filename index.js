@@ -18,10 +18,7 @@ const commands = [
 ];
 
 const logger = winston.createLogger({
-  format: winston.format.combine(
-    winston.format.colorize(),
-    winston.format.simple(),
-  ),
+  format: winston.format.simple(),
   transports: [
     new winston.transports.Console(),
   ],
