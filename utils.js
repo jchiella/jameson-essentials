@@ -1,18 +1,18 @@
-const sayMention = ({ client, channel, mentioned, mentioner }, text, img) => {
+const sayMention = ({ client, channel, author}, person, text, img) => {
     const personID = mentioned.slice(3, -1);
     const botID = getUserIDFromName(client, 'JamesonEssentials');
 
     if (person === 'me' || personID === botID) {
       if (img) {
-        channel.send(`${mentioner} ${text}`, img);
+        channel.send(`${author} ${text}`, img);
       } else {
-        channel.send(`${mentioner} ${text}`);
+        channel.send(`${author} ${text}`);
       }
     } else {
       if (img) {
-        channel.send(`${mentioned} ${text}`, img);
+        channel.send(`${person} ${text}`, img);
       } else {
-        channel.send(`${mentioned} ${text}`);
+        channel.send(`${person} ${text}`);
       }
     }
 }

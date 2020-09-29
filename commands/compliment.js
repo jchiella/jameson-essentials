@@ -4,12 +4,13 @@ const { sayMention } = require('../utils');
 
 const complimentsURL = 'https://complimentr.com/api';
 
-const handler = ({ client, channel, author, logger }, args) => {
+const handler = (params, args) => {
+  const { logger } = params;
   axios.get(complimentsURL)
     .then(function (response) {
       if (args.length === 1) {
         const person = args[0];
-        sayMention(client, channel, person, author, response.data.compliment);
+        sayMention(params, person, response.data.compliment);
       }
     })
     .catch(function (error) {

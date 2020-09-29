@@ -16,13 +16,13 @@ const init = (logger) => axios.get(commentsURL)
     logger.error(error);
   });
 
-const handler = ({ client, channel, author }, args) => {
+const handler = (params, args) => {
   const randomIndex = Math.floor(Math.random() * comments.length);
   if (!args.length) {
     channel.send(comments[randomIndex]);
   } else if (args.length === 1) {
     const person = args[0];
-    sayMention(client, channel, person, author, comments[randomIndex]);
+    sayMention(params, person, comments[randomIndex]);
   }
 }
 
