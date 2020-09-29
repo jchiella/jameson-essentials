@@ -1,5 +1,5 @@
 const sayMention = ({ client, channel, mentioned, mentioner }, text, img) => {
-    const personID = person.slice(3, -1);
+    const personID = mentioned.slice(3, -1);
     const botID = getUserIDFromName(client, 'JamesonEssentials');
 
     if (person === 'me' || personID === botID) {
