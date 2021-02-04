@@ -6,10 +6,13 @@ const handler = ({ channel }, args) => {
     const subcommand = args.shift();
     if (subcommand === 'new') {
       counters[counter] = 0;
+      channel.send(`Created new counter ${counter}`);
     } else if (subcommand === '+') {
       counters[counter] += 1;
+      channel.send(`${counter} is now ${counters[counter]}`);
     } else if (subcommand === '-') {
       counters[counter] -= 1;
+      channel.send(`${counter} is now ${counters[counter]}`);
     } else if (subcommand === '=') {
       if (args.length) {
         let number;
@@ -17,11 +20,10 @@ const handler = ({ channel }, args) => {
           number = args.shift();
         } finally {
           counters[counter] = number;
+          channel.send(`${counter} is now ${counters[counter]}`);
         }
       }
     }
-
-    channel.send(`${counter} is now ${counters[counter]}`);
   }
 }
 
