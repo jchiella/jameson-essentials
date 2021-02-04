@@ -1,7 +1,7 @@
 const counters = {};
 
 const handler = ({ channel }, args) => {
-  if (args.length > 2) {
+  if (args.length >= 2) {
     const counter = args.shift();
     const subcommand = args.shift();
     if (subcommand === 'new') {
