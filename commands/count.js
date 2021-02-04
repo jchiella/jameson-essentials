@@ -17,8 +17,7 @@ const newCounter = async (counter) => {
 
 const getCounter = async (counter) => {
   const result = await client.query(`SELECT Count FROM Counters WHERE Name='${counter}'`);
-  console.log(result);
-  return 101;
+  return result.rows[0].count;
 };
 
 const incrementCounter = async (counter) => {
