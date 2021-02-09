@@ -1,8 +1,10 @@
 const Discord = require('discord.js');
 const winston = require('winston');
 const express = require('express');
+var cors = require('cors')
 
 const app = express();
+app.use(cors());
 
 const { commandPrefix, botToken, port } = require('./globals');
 
