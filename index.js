@@ -1,7 +1,10 @@
 const Discord = require('discord.js');
 const winston = require('winston');
+const express = require('express');
 
-const { commandPrefix, botToken } = require('./globals');
+const app = express();
+
+const { commandPrefix, botToken, port } = require('./globals');
 
 const client = new Discord.Client();
 
@@ -15,7 +18,7 @@ const commands = [
   require('./commands/donald'),
   require('./commands/unoreverse'),
   require('./commands/hangman'),
-  require('./commands/count'),
+  // require('./commands/count'),
 ];
 
 const logger = winston.createLogger({
@@ -53,3 +56,29 @@ client.on('message', message => {
 });
 
 client.login(botToken);
+
+app.get('/quotes', (req, res) => {
+  client.channels.fetch('763508354076639274').then((chan) => {
+    chan.messages.fetch({ limit: 100 }).then((msgs) => {
+      res.json(msgs.map((msg) => {
+        const pattern = /["“]?([^"]+)["”]?\s*-+\s*(\S+),?\s*(\S+)/g;
+        const matches = pattern.exec(msg.content);
+        if (matches === null) {
+          console.log(`Unable to match with ${msg.content}`);
+        } else {
+          return {
+            fullText: msg.content,
+            quote: matches[1],
+            quotedPerson: matches[2],
+            time: matches[3],
+            quotedBy: msg.author.username,
+          };
+        }
+      }));
+    });
+  });
+});
+
+app.listen(port, () => {
+  logger.info(`Express app listening on port ${port}`);
+});
