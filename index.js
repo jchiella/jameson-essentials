@@ -59,25 +59,46 @@ client.on('message', message => {
 
 client.login(botToken);
 
+const getAllMessages = async () => {
+  const allMessages = [];
+  let lastID;
+
+  while (true) {
+    const options = { limit: 100 };
+    if (lastID) {
+      options.before = lastID;
+    }
+
+    const channel = await client.channels.fetch('763508354076639274');
+    const messages = await channel.messages.fetch(options);
+    allMessages.push(...messages.array());
+    lastID = messages.last().id;
+
+    if (messages.size != 100) {
+      break;
+    }
+  }
+
+  return allMessages;
+};
+
 app.get('/quotes', (req, res) => {
-  client.channels.fetch('763508354076639274').then((chan) => {
-    chan.messages.fetch({ limit: 100 }).then((msgs) => {
-      res.json(msgs.map((msg) => {
-        const pattern = /["“]?([^"]+)["”]?\s*-+\s*(\S+),?\s*(\S+)/g;
-        const matches = pattern.exec(msg.content);
-        if (matches === null) {
-          console.log(`Unable to match with ${msg.content}`);
-        } else {
-          return {
-            fullText: msg.content,
-            quote: matches[1],
-            quotedPerson: matches[2],
-            time: matches[3],
-            quotedBy: msg.author.username,
-          };
-        }
-      }));
-    });
+  getAllMessages().then((msgs) => {
+    res.json(msgs.map((msg) => {
+      const pattern = /["“]?([^"]+)["”]?\s*-+\s*(\S+),?\s*(\S+)/g;
+      const matches = pattern.exec(msg.content);
+      if (matches === null) {
+        console.log(`Unable to match with ${msg.content}`);
+      } else {
+        return {
+          fullText: msg.content,
+          quote: matches[1],
+          quotedPerson: matches[2],
+          time: matches[3],
+          quotedBy: msg.author.username,
+        };
+      }
+    }));
   });
 });
 
