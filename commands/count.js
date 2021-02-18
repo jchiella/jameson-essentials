@@ -1,7 +1,9 @@
 const { Client } = require('pg');
 
+const { dbUrl } = require('../globals');
+
 const client = new Client({
-  connectionString: process.env.DATABASE_URL,
+  connectionString: dbUrl,
   ssl: {
     rejectUnauthorized: false
   },
