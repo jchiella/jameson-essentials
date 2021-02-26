@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const winston = require('winston');
 const express = require('express');
-var cors = require('cors')
+var cors = require('cors');
 
 const app = express();
 app.use(cors());
@@ -20,7 +20,7 @@ const commands = [
   require('./commands/donald'),
   require('./commands/unoreverse'),
   require('./commands/hangman'),
-//  require('./commands/count'),
+  require('./commands/count'),
 ];
 
 const logger = winston.createLogger({
@@ -28,7 +28,7 @@ const logger = winston.createLogger({
   transports: [
     new winston.transports.Console(),
   ],
-})
+});
 
 client.on('ready', () => {
   logger.info('I am ready!');

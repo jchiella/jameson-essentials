@@ -1,69 +1,58 @@
-const { Client } = require('pg');
-
 const { dbUrl } = require('../globals');
 
-const client = new Client({
-  connectionString: dbUrl,
-  ssl: {
-    rejectUnauthorized: false
-  },
-});
+const db = require('monk')(dbUrl);
+const counters = db.get('counters');
 
-const init = () => {
-  client.connect();
+const newCounter = (counter) => {
+  counters.insert(({ name: counter, count: 0 }));
 };
 
-const newCounter = async (counter) => {
-  await client.query(`INSERT INTO Counters (Name, Count) VALUES ('${counter}', 0);`);
+const deleteCounter = (counter) => {
+  counters.remove({ name: counter });
 };
 
-const deleteCounter = async (counter) => {
-  await client.query(`DELETE FROM Counters WHERE ${counter};`);
-};
-
-const getCounter = async (counter) => {
-  const result = await client.query(`SELECT Count FROM Counters WHERE Name='${counter}';`);
-  return result.rows[0].count;
+const getCounter = (counter) => {
+  return counters.findOne({ name: counter }).then((doc) => doc.count);
 };
 
 const incrementCounter = async (counter) => {
-  await client.query(`UPDATE Counters SET Count = Count + 1 WHERE Name='${counter}';`);
+  counters.update({ name: counter }, { count: getCounter(counter) + 1 });
 };
 
 const decrementCounter = async (counter) => {
-  await client.query(`UPDATE Counters SET Count = Count - 1 WHERE Name='${counter}';`);
+  counters.update({ name: counter }, { count: getCounter(counter) - 1 });
 };
 
 const setCounter = async (counter, number) => {
-  await client.query(`UPDATE Counters SET Count = ${number} WHERE Name='${counter}';`);
+  counters.update({ name: counter}, { count: number });
 };
 
-const handler = async ({ channel }, args) => {
+const handler = ({ channel }, args) => {
   if (args.length === 1) {
     const counter = args.shift();
-    channel.send(`The ${counter} counter is ${await getCounter(counter)}`);
+    channel.send(`The ${counter} counter is ${getCounter(counter)}`);
   } else if (args.length >= 2) {
     const counter = args.shift();
     const subcommand = args.shift();
     if (subcommand === 'new') {
-      await newCounter(counter);
+      newCounter(counter);
       channel.send(`Created new counter ${counter}`);
     } else if (subcommand === 'delete') {
-      await deleteCounter(counter);
+      deleteCounter(counter);
     } else if (subcommand === '+') {
-      await incrementCounter(counter);
-      channel.send(`${counter} is now ${await getCounter(counter)}`);
+      incrementCounter(counter);
+      channel.send(`${counter} is now ${getCounter(counter)}`);
     } else if (subcommand === '-') {
-      await decrementCounter(counter);
-      channel.send(`${counter} is now ${await getCounter(counter)}`);
+      decrementCounter(counter);
+      channel.send(`${counter} is now ${getCounter(counter)}`);
     } else if (subcommand === '=') {
       if (args.length) {
         let number;
         try {
           number = args.shift();
         } finally {
-          await setCounter(counter, number);
-          channel.send(`${counter} is now ${await getCounter(counter)}`);
+          setCounter(counter, number);
+          channel.send(`${counter} is now ${getCounter(counter)}`);
         }
       }
     }
@@ -73,5 +62,5 @@ const handler = async ({ channel }, args) => {
 module.exports = {
   handler,
   name: 'count',
-  init,
-}
+  init: () => 0,
+};
