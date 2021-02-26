@@ -11,26 +11,27 @@ const deleteCounter = (counter) => {
   counters.remove({ name: counter });
 };
 
-const getCounter = (counter) => {
-  return counters.findOne({ name: counter }).then((doc) => doc.count);
+const getCounter = async (counter) => {
+  const doc = await counters.findOne({ name: counter });
+  return doc.count;
 };
 
-const incrementCounter = async (counter) => {
-  counters.update({ name: counter }, { count: getCounter(counter) + 1 });
+const incrementCounter = (counter) => {
+  counters.update({ name: counter }, { $inc: {count: 1 }});
 };
 
-const decrementCounter = async (counter) => {
-  counters.update({ name: counter }, { count: getCounter(counter) - 1 });
+const decrementCounter = (counter) => {
+  counters.update({ name: counter }, { $inc: {count: -1 }});
 };
 
-const setCounter = async (counter, number) => {
-  counters.update({ name: counter}, { count: number });
+const setCounter = (counter, number) => {
+  counters.update({ name: counter}, { $set: {count: number }});
 };
 
-const handler = ({ channel }, args) => {
+const handler = async ({ channel }, args) => {
   if (args.length === 1) {
     const counter = args.shift();
-    channel.send(`The ${counter} counter is ${getCounter(counter)}`);
+    channel.send(`The ${counter} counter is ${await getCounter(counter)}`);
   } else if (args.length >= 2) {
     const counter = args.shift();
     const subcommand = args.shift();
@@ -41,18 +42,18 @@ const handler = ({ channel }, args) => {
       deleteCounter(counter);
     } else if (subcommand === '+') {
       incrementCounter(counter);
-      channel.send(`${counter} is now ${getCounter(counter)}`);
+      channel.send(`${counter} is now ${await getCounter(counter)}`);
     } else if (subcommand === '-') {
       decrementCounter(counter);
-      channel.send(`${counter} is now ${getCounter(counter)}`);
+      channel.send(`${counter} is now ${await getCounter(counter)}`);
     } else if (subcommand === '=') {
       if (args.length) {
         let number;
         try {
           number = args.shift();
         } finally {
-          setCounter(counter, number);
-          channel.send(`${counter} is now ${getCounter(counter)}`);
+          setCounter(counter, parseInt(number));
+          channel.send(`${counter} is now ${await getCounter(counter)}`);
         }
       }
     }
