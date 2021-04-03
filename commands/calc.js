@@ -18,10 +18,10 @@ const handler = ({ channel }, args) => {
         channel.send('Nope! That was not good math!');
       });
   }
-}
+};
 
 module.exports = {
   handler,
   name: 'calc',
   init: () => 0,
-}
+};
