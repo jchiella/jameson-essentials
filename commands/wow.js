@@ -17,10 +17,12 @@ const handler = ({ channel, client, discordBtns }) => {
   });
 
   client.on('clickButton', async (button) => {
-    if (button.id === 'yes') {
-      await button.reply.send('Congratulations!');
+    if (button.replied) {
+      await button.reply.send('You already clicked me, dummy!', true);
+    } else if (button.id === 'yes') {
+      await button.reply.send('Congratulations!', true);
     } else if (button.id === 'no') {
-      await button.reply.send('Oh nooooooo!');
+      await button.reply.send('Oh nooooooo!', true);
     }
   });
 };
