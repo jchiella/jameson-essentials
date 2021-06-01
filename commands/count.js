@@ -4,7 +4,7 @@ const db = require('monk')(dbUrl);
 const counters = db.get('counters');
 
 const newCounter = (counter) => {
-  counters.insert(({ name: counter, count: 0 }));
+  counters.insert({ name: counter, count: 0 });
 };
 
 const deleteCounter = (counter) => {
@@ -17,15 +17,15 @@ const getCounter = async (counter) => {
 };
 
 const incrementCounter = (counter) => {
-  counters.update({ name: counter }, { $inc: {count: 1 }});
+  counters.update({ name: counter }, { $inc: { count: 1 } });
 };
 
 const decrementCounter = (counter) => {
-  counters.update({ name: counter }, { $inc: {count: -1 }});
+  counters.update({ name: counter }, { $inc: { count: -1 } });
 };
 
 const setCounter = (counter, number) => {
-  counters.update({ name: counter}, { $set: {count: number }});
+  counters.update({ name: counter }, { $set: { count: number } });
 };
 
 const handler = async ({ channel }, args) => {

@@ -6,7 +6,8 @@ const complimentsURL = 'https://complimentr.com/api';
 
 const handler = (params, args) => {
   const { logger } = params;
-  axios.get(complimentsURL)
+  axios
+    .get(complimentsURL)
     .then(function (response) {
       if (args.length === 1) {
         const person = args[0];
@@ -16,10 +17,10 @@ const handler = (params, args) => {
     .catch(function (error) {
       logger.error(error);
     });
-}
+};
 
 module.exports = {
   handler,
   name: 'compliment',
-  init: () => 0,   
-}
+  init: () => 0,
+};

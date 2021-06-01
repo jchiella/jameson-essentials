@@ -5,11 +5,12 @@ const apiURL = 'http://api.mathjs.org/v4/';
 const handler = ({ channel }, args) => {
   if (args.length > 0) {
     let math = args.join(' ');
-    axios.get(apiURL, {
-      params: {
-        expr: math,
-      },
-    })
+    axios
+      .get(apiURL, {
+        params: {
+          expr: math,
+        },
+      })
       .then(function (response) {
         channel.send(response.data);
       })

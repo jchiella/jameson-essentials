@@ -1,55 +1,63 @@
 const axios = require('axios');
 
-const hangmanPics = [String.raw`
+const hangmanPics = [
+  String.raw`
   +---+
   |   |
       |
       |
       |
       |
-=========`, String.raw`
-  +---+
-  |   |
-  O   |
-      |
-      |
-      |
-=========`, String.raw`
+=========`,
+  String.raw`
   +---+
   |   |
   O   |
+      |
+      |
+      |
+=========`,
+  String.raw`
+  +---+
+  |   |
+  O   |
   |   |
       |
       |
-=========`, String.raw`
+=========`,
+  String.raw`
   +---+
   |   |
   O   |
  /|   |
       |
       |
-=========`, String.raw`
+=========`,
+  String.raw`
   +---+
   |   |
   O   |
  /|\  |
       |
       |
-=========`, String.raw`
+=========`,
+  String.raw`
   +---+
   |   |
   O   |
  /|\  |
  /    |
       |
-=========`, String.raw`
+=========`,
+  String.raw`
   +---+
   |   |
   O   |
  /|\  |
  / \  |
       |
-=========`];
+=========`,
+];
 
 let state = {
   gameInProgress: false,
@@ -57,46 +65,51 @@ let state = {
   guessedWord: [],
   failedGuesses: [],
   hangmanStage: 0,
-}
+};
 
 const hangmanCutoff = 5;
 
 const gameWin = ({ channel }) => {
   channel.send('You guys won!!! Yayayayay!');
   state.gameInProgress = false;
-}
+};
 
 const gameLose = ({ channel }) => {
   channel.send('You guys lost. Game Over.');
   channel.send(`The word was ${state.hiddenWord}`);
   state.gameInProgress = false;
-}
+};
 
 const sendState = ({ channel }) => {
-  channel.send({embed: {
-    "title": "Hangman",
-    "color": 5288419,
-    "fields": [
-      {
-        "name": "Word to Guess",
-        "value": state.guessedWord.join(' ').toUpperCase().replace(/_/g, '\\_'),
-      },
-      {
-        "name": "Incorrect Guesses",
-        "value": state.failedGuesses.join(' ').toUpperCase() || 'None',
-      },
-      {
-        "name": "Hangman Gallows",
-        "value": '```' + hangmanPics[state.hangmanStage] + '```',
-      }
-    ]
-  }});
-}
+  channel.send({
+    embed: {
+      title: 'Hangman',
+      color: 5288419,
+      fields: [
+        {
+          name: 'Word to Guess',
+          value: state.guessedWord.join(' ').toUpperCase().replace(/_/g, '\\_'),
+        },
+        {
+          name: 'Incorrect Guesses',
+          value: state.failedGuesses.join(' ').toUpperCase() || 'None',
+        },
+        {
+          name: 'Hangman Gallows',
+          value: '```' + hangmanPics[state.hangmanStage] + '```',
+        },
+      ],
+    },
+  });
+};
 
 const subcommands = {
-  'start': async (params, args) => {
+  start: async (params) => {
     const { channel } = params;
-    let words = await axios.get('https://raw.githubusercontent.com/Tom25/Hangman/master/wordlist.txt')
+    let words = await axios
+      .get(
+        'https://raw.githubusercontent.com/Tom25/Hangman/master/wordlist.txt'
+      )
       .then((res) => res.data.split('\n'));
     if (!state.gameInProgress) {
       state.gameInProgress = true;
@@ -110,7 +123,7 @@ const subcommands = {
       channel.send('Game already in progress!');
     }
   },
-  'guess': (params, args) => {
+  guess: (params, args) => {
     const { channel } = params;
     if (args.length === 2) {
       const guess = args[1].toLowerCase();
@@ -151,7 +164,7 @@ const subcommands = {
       }
     }
   },
-  'stop': ({ channel }, args) => {
+  stop: ({ channel }) => {
     if (state.gameInProgress) {
       state.gameInProgress = false;
       channel.send('Game stopped!');
@@ -159,7 +172,7 @@ const subcommands = {
       channel.send('There is no game to stop!');
     }
   },
-}
+};
 
 const handler = (params, args) => {
   if (args.length) {
@@ -167,10 +180,10 @@ const handler = (params, args) => {
     const subcommand = subcommands[subcommandName];
     subcommand(params, args);
   }
-}
+};
 
 module.exports = {
   handler,
   name: 'hangman',
   init: () => 0,
-}
+};
