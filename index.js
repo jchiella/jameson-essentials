@@ -24,6 +24,7 @@ const commands = [
   require('./commands/unoreverse'),
   require('./commands/hangman'),
   require('./commands/count'),
+  require('./commands/wow'),
 ];
 
 const logger = winston.createLogger({
